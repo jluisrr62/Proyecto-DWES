@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head  th:insert="librerias::librerias"> </head>
+
+<body>
+	<div class="container">
+		<header>
+			<div th:insert="top::top">	</div>
+		</header>
+		<h1>Libros</h1>
+		
+		<!-- Imprimir tabla pedidos -->
+		
+		<table class="table table-hover">
+			<thead class="table-dark bg-info text-white">
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Nombre de usuario</th>
+					<th>Libros</th>
+					<th>Borrar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${listaUsuarios.empty}">
+					<td colspan="2"> No hay usuarios </td>
+				</tr>
+				<tr th:each="usuario:${listaUsuarios}">
+					<td>
+						<a th:href="@{/usuarios/{id}(id=${usuario.id})}" class="btn btn-primary btn-sm">
+							<span th:text="${usuario.id}"> </span>
+						</a> 
+					</td>
+					<td>
+						<span th:text="${usuario.nombre}"> </span>
+					</td>
+					<td>
+						<span th:text="${usuario.username}"> </span>
+					</td>
+					<td>
+						<span th:each="libro:${usuario.librosUsuarios}"> 
+							<span>|</span>
+							<span th:text ="${libro.cantidad}"></span>
+							<span> de </span>
+							<span th:text="${libro.libro.getNombre()}"></span>
+							<span>|</span>
+						</span>
+					</td>
+					<td>
+						<a th:attr="data-target='#modal-delete'+${usuario.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+					</td>
+					
+					<!-- delete modal  -->
+					
+					<div class="modal fade" th:id="modal-delete+${usuario.id}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="exampleModalLabel">Eliminar</h4>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">x</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p class="error-text"> ¿Esta seguro de eliminar al usuario:
+									<strong><span th:text="${usuario.nombre}"></span></strong>?
+								</p>
+							</div>		
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<a th:href="@{/usuarios/delete/{id}(id=${usuario.id})}">
+										<span class="btn btn-danger btn-sm" value="delete">Eliminar</span>
+									</a>		
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+					
+					
+
+		
+		
+		
+		
+	</div>
+</body>

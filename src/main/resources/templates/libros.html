@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head  th:insert="librerias::librerias"> </head>
+
+<body>
+	<div class="container">
+		<header>
+			<div th:insert="top::top">	</div>
+		</header>
+		<h1>Libros</h1>
+		
+		<!-- Imprimir tabla pedidos -->
+		
+		<table class="table table-hover">
+			<thead class="table-dark bg-info text-white">
+				<tr>
+					<th>Id</th>
+					<th>Nombre Libro</th>
+					<th>ISBN</th>
+					<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+					<th sec:authorize="hasRole('ROLE_ADMIN')">Borrar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${listaLibros.empty}">
+					<td colspan="2"> No hay libros </td>
+				</tr>
+				<tr th:each="libro:${listaLibros}">
+					<td>
+						<a th:href="@{/libros/{id}(id=${libro.id})}" class="btn btn-primary btn-sm">
+							<span th:text="${libro.id}"> </span>
+						</a> 
+					</td>
+					<td>
+						<span th:text="${libro.nombre}"> </span>
+					</td>
+					<td>
+						<span th:text="${libro.ISBN}"> </span>
+					</td>
+					<td sec:authorize="hasRole('ROLE_ADMIN')">
+						<a th:attr="data-target='#modal-delete'+${libro.id}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">Borrar</a>
+					</td>
+					
+					<!-- delete modal  -->
+					
+					<div class="modal fade" th:id="modal-delete+${libro.id}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="exampleModalLabel">Eliminar</h4>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">x</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p class="error-text"> ¿Esta seguro de eliminar el libro:
+									<strong><span th:text="${libro.nombre}"></span></strong>?
+								</p>
+							</div>		
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<a th:href="@{/delete/{id}(id=${libro.id})}">
+										<span class="btn btn-danger btn-sm" value="delete">Eliminar</span>
+									</a>		
+								</div>
+							</div>
+						</div>
+					</div>				
+					
+
+		
+		
+		
+		
+	</div>
+</body>

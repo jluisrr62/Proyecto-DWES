@@ -1,0 +1,92 @@
+<div th:fragment="top">
+	<!-- Topbar -->
+	<!-- Topbar -->
+	<!-- Topbar -->
+	<!-- Topbar -->
+	<!-- Topbar -->
+
+
+	<div class="collapse bg-dark" id="navbarHeader">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8 col-md-7 py-4">
+					<h4 class="text-white">¿Qué es?</h4>
+					<p class="text-muted">Proyecto DWES - 2ºDAW de José Luis Rebollo</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="navbar navbar-dark bg-dark box-shadow">
+		<div class="container d-flex justify-content-between">
+			<a href="/" class="navbar-brand d-flex align-items-center">
+				
+				<strong>Libros API</strong>
+			</a>
+
+
+
+
+			<nav class="navbar navbar-expand  navbar-dark bg-dark box-shadow">
+
+				<!-- Sidebar Toggle (Topbar) -->
+				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+					<i class="fa fa-bars"></i>
+				</button>
+
+				<!-- Topbar Navbar -->
+				<ul class="navbar-nav ml-auto">
+
+					<li class="nav-item dropdown no-arrow">
+						<a class="nav-link  text-gray-600" href="/" role="button">
+							<i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
+							Inicio
+						</a>
+					</li>
+
+					<div class="topbar-divider d-none d-sm-block"></div>
+
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown no-arrow">
+						<a class="nav-link text-gray-600" href="/usuarios" role="button">
+							Usuarios
+						</a>
+					</li>
+
+					
+
+					<div class="topbar-divider d-none d-sm-block"></div>-->
+
+
+					<!-- Nav Item - User Information -->
+
+					<li sec:authorize="isAuthenticated()" class="nav-item dropdown text-gray-900 no-arrow">
+						
+						<div class="nav-item  text-gray-900">
+							<a class="nav-link text-gray-600" href="/usuarios" role="button">
+							 	Hola: <span sec:authentication = "principal.username" /> 
+						    </a>
+						</div>
+						
+					</li>
+					 
+					<div class="topbar-divider d-none d-sm-block">
+
+						<li sec:authorize="isAnonymous()" class="nav-link  text-gray-600">
+							<a class="btn btn-primary btn-sm  " href="/login">Login</a>
+						</li>
+						<li sec:authorize="isAuthenticated()"class="nav-link  text-gray-600">
+						<form th:action="@{/logout}" method="post">
+							<input class="btn btn-primary btn-sm " type="submit" value="Sign Out" />
+						</form>
+						</li>
+					</div>
+				</ul>
+
+			</nav>
+			<!-- End of Topbar -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+				aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</div>
+</div>
